@@ -1,0 +1,26 @@
+{
+  "name": "di-ts",
+  "description": "Basic DI implementation in TS, see https://nehalist.io/dependency-injection-in-typescript/",
+  "private": true,
+  "author": {
+    "name": "Kevin Hirczy",
+    "email": "kevin@nehalist.io",
+    "url": "https://nehalist.io"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ./src/index.ts"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.10",
+    "ts-node": "^10.5.0",
+    "tslog": "^3.3.2",
+    "typescript": "^4.5.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^8.0.14",
+    "@types/uuid": "^8.3.4"
+  }
+}
