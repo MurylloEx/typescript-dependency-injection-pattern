@@ -1,4 +1,3 @@
-
 <h1 align="center">TypeScript Dependency Injection Pattern</h1>
 <p align="center">
   <img src="https://i.imgur.com/kpnFpjv.png" width="120" alt="TypeScript Logo" />

@@ -28,7 +28,7 @@ export class Injector {
   }
 
   private hasCircularDependency(tokens: Instantiable<any, any>[]): boolean {
-    return tokens.length > 0 ? 
+    return tokens.length > 0 ?
       tokens.some(dep => typeof dep === 'undefined') : false;
   }
 
@@ -49,7 +49,7 @@ export class Injector {
       'CIRCULAR': new ReferenceError(`Circular dependency detected in [${target.name}].`),
       'INVALID': new TypeError(`Invalid provided service [${target.name}], services should be decorated with @Service.`),
       'MISSING': new TypeError(`Cannot resolve the service [${target.name}] because it wasn't exported in providers.`)
-    } [errorCode] || new Error('Unknown error while resolving dependency.');
+    }[errorCode] || new Error('Unknown error while resolving dependency.');
 
     this.logger.fatal(error);
     return;
@@ -60,16 +60,16 @@ export class Injector {
     if (!this.container.isExportedDependency(target))
       return this.showUnresolvedError('MISSING', target);
 
-    if (ServiceFacade.isValidService(target.prototype)){
+    if (ServiceFacade.isValidService(target.prototype)) {
       if (this.hasResolvedDependency(target))
         return this.container.get<T>(target);
 
       const tokens: any[] = ServiceFacade.getServiceTokens(target);
-  
-      if (!this.hasCircularDependency(tokens)){
+
+      if (!this.hasCircularDependency(tokens)) {
         const injections = tokens.map((token) => this.forwardRef(token));
 
-        if (!this.hasUnresolvedDependency(injections)){
+        if (!this.hasUnresolvedDependency(injections)) {
           const service = this.container.load<T>(new target(...injections));
 
           this.logger.info(`Loaded service [${target.name}] to memory by dependency injection.`);

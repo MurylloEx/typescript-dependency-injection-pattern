@@ -3,9 +3,7 @@ import { Service } from '../Decorators';
 import { ServiceContainer } from '../Container';
 
 @Service()
-class DatabaseHandler {
-
-  constructor() {}
+class DatabaseService {
 
   insert(table: string, data: { [column: string]: string | number }) {
     console.log(`writing to ${table}:`);
@@ -14,9 +12,9 @@ class DatabaseHandler {
 }
 
 @Service()
-class MyLogger {
+class LoggerService {
 
-  constructor(protected dbHandler: DatabaseHandler) {}
+  constructor(protected readonly dbHandler: DatabaseService) {}
 
   info(message: string) {
     this.dbHandler.insert('log', {
@@ -29,18 +27,17 @@ class MyLogger {
 @Service()
 class UserService {
 
-  constructor(private logger: MyLogger) {}
+  constructor(private readonly logger: LoggerService) {}
 
   editUser(userId: number) {
     this.logger.info(`User ${userId} has been edited`);
   }
-
 }
 
 const container = ServiceContainer.create().providers([
-  MyLogger,
+  LoggerService,
   UserService,
-  DatabaseHandler
+  DatabaseService
 ]);
 
 Injector.create(container).resolveAll();
